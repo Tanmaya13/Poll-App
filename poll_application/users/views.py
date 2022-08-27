@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-
+from poll.models import Profile        # one to one field for user
 
 def signup(request):                                
     if request.method == "POST":
@@ -15,7 +15,6 @@ def signup(request):
 
 
         if User.objects.filter(username = username).exists():
-            print("username already taken")                          # printing a message in terminal
             messages.error(request, "username already taken")
             error = True
 
@@ -39,6 +38,12 @@ def signup(request):
             )
 
             user.save()     # saving the object into database
+            
+            account = Profile( 
+                user_id = user.id,
+                phone_number = number
+            )
+            account.save()
 
             
             messages.success(request, "Account created successfully. Login to continue.")
