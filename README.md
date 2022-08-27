@@ -10,9 +10,9 @@ This poll app allows new user to register and existing user to login and create 
 - track results
 
 ## Apps
-1. Users
-This app provides functionalities of user login and registration.
-2. Poll
+1. Users:
+This app provides functionalities of user login, logout and registration.
+2. Poll:
 It manages all functionalities like creating polls, voting, viewing profile and results.
 
 ## Home Page
