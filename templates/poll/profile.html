@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+User Profile
+{% endblock title %}
+
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Today's Polls</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'create' %}">Create your Poll</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Welcome, {{user.username}}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              
+              <li><a class="dropdown-item" href="{% url 'result' %}">My Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'signout' %}">Log Out</a></li>
+ 
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+
+
+
+<div class="card">
+    <div class="card-body">
+        <h3>NAME: {{user.first_name}}</h3>
+        <h3>EMAIL: {{user.email}}</h3>
+        <h3>MOBILE: {{account.phone_number}}</h3>
+    </div>
+</div>
+
+{% for p in poll %}
+    <div class="card px-4 py-3">
+        <h5>{{p.question}}</h5>
+        <p>{{p.option_one}}: {{p.option_one_count}} votes</p>
+        <p>{{p.option_two}}: {{p.option_two_count}} votes</p>
+        <p>{{p.option_three}}: {{p.option_three_count}} votes</p>
+        <p>{{p.option_four}}: {{p.option_four_count}} votes</p>
+    </div>
+    
+{% endfor %}
+
+{% endblock content %}

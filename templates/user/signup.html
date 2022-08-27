@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Register | Poll App{% endblock title %}
+
+{% block content %} 
+
+<div class="container">
+    <div class="row my-3">
+        <div class="col-md-4 mx-auto">
+            <div class="card bg-dark text-light">
+                <div class="card-header">
+                    <h3 class="h3">Sign Up</h3>
+                </div>
+                
+                <div class="card-body">
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="{{message.tags}}">{{message}}</p>     
+                        {% endfor %}
+                    {% endif %}
+                    
+                    
+                    <form action="{% url 'signup' %}" method="post" onsubmit="return validate()">  
+                        {% csrf_token %}    
+                        <div class="mb-1">
+                            <label for="first_name">Username<span class="text-danger">*</span></label>
+                            <input type="text" name="first_name" id="first_name" class="form-control">
+                            <label for="firstname error" id="firstname_error" class="text-danger"></label>
+                        </div>
+
+                        <div class="mb-1">
+                            <label for="mobile">Mobile Number<span class="text-danger">*</span></label>
+                            <input type="tel" name="mobile" id="mobile" class="form-control">
+                            <label for="mobile error" id="mobile_error" class="text-danger"></label>
+                        </div>
+
+                        <div class="mb-1">
+                            <label for="email">Email<span class="text-danger">*</span></label>
+                            <input type="text" name="email" id="email" class="form-control">
+                            <label for="email error" id="email_error" class="text-danger"></label>
+                        </div>
+
+                        <div class="mb-1">
+                            <label for="password">Password<span class="text-danger">*</span></label>
+                            <input type="password" name="password" id="password" class="form-control">
+                            <label for="password error" id="password_error" class="text-danger"></label>
+                        </div>
+
+                        <div class="mb-1">
+                            <label for="password2">Confirm Password<span class="text-danger">*</span></label>
+                            <input type="password" name="password2" id="password2" class="form-control">
+                            <label for="password2 error" id="password2_error" class="text-danger"></label>
+                        </div>
+
+                        <input type="submit" class="btn btn-primary" value="Sign Up">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+<!-- for javascript validation file -->
+{% block extrajs %}
+<script src="{% static 'js/signup-validator.js' %}"></script>
+{% endblock extrajs %}

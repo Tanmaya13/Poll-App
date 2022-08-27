@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Home | Poll App
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock css %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Today's Polls</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'create' %}">Create your Poll</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Welcome, {{user.username}}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              
+              <li><a class="dropdown-item" href="{% url 'result' %}">My Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'signout' %}">Log Out</a></li>
+              
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+
+{% if poll %}
+<div class="row">
+  
+  {% if messages %}
+    {% for message in messages %}
+        <p class="{{message.tags}}">{{message}}</p>     
+    {% endfor %}
+  {% endif %}
+
+  {% for p in poll %}
+  <div class="card py-3 px-4">
+      <form action="{% url 'vote' p.id %}">
+        
+        <label>Question: {{p.question}}</label><br>
+
+        <input type="radio" name="option" id="op1" value="op1">
+        <label>{{p.option_one}}</label><br>
+
+        <input type="radio" name="option" id="op2" value="op2">
+        <label>{{p.option_two}}</label><br>
+
+        <input type="radio" name="option" id="op3" value="op3">
+        <label>{{p.option_three}}</label><br>
+
+        <input type="radio" name="option" id="op4" value="op4">
+        <label>{{p.option_four}}</label><br><br>
+
+        <input type="submit" value="vote" id="btn"><br>
+      </form>
+
+    </div>
+    <br><br>
+  {% endfor %}
+
+</div>
+
+{% else %}
+  <h1 style="display: flex; align-items: center; justify-content: center;">Welcome to &nbsp;<span style="color: red;">Polling Application<span></h1><br>
+  <center><img src="{% static 'images/banner.jpg' %}" alt=""></center>
+
+{% endif %}
+
+
+{% endblock content %}
